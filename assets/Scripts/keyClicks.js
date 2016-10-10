@@ -7,8 +7,11 @@ var KEYCODE_W = 87;
 var KEYCODE_A = 65;
 var KEYCODE_S = 83;
 var KEYCODE_D = 68;
+var KEYCODE_J = 74;
 
 var KEYCODE_SPACE = 32;
+
+var isInJMode = false;
 
 
 function handleKeyDown(evt) {
@@ -27,9 +30,10 @@ function handleKeyDown(evt) {
         return false;
     case KEYCODE_DOWN:
         timeOfAction = gameTimer;
-//      run method that slides then back to running    
-
-//        CharacterState = "Sliding"
+        //      run method that slides then back to running    
+        PlayerModel.y += 70;
+        PlayerModel.rotation = -90;
+        CharacterState = "Sliding"
         console.log(evt.keyCode + " down");
         return false;
     case KEYCODE_W:
@@ -44,10 +48,20 @@ function handleKeyDown(evt) {
     case KEYCODE_D:
         console.log(evt.keyCode + " down");
         return false;
+    case KEYCODE_J:
+        if(isInJMode === true){
+            console.log("JMode Off");
+            isInJMode = false;
+        }else{
+            console.log("JMode On");
+            isInJMode = true;
+        }
+        
+        console.log(evt.keyCode + " down");
+        return false;
     case KEYCODE_SPACE:
         timeOfAction = gameTimer;
-        //      run method that goes up as it loops then down then back to running    
-        timeOfAction = gameTimer;
+        playJump();
         CharacterState = "Jumping";
         console.log(evt.keyCode + " down");
         return false;

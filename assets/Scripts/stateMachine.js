@@ -1,16 +1,23 @@
 function stateMachine() {
+
     switch (state) {
 
     case "INTRO":
+        PlayerModel.x = 50;
+        PlayerModel.y = 510;
+        resetScore();
+        resetGameTimer();
         console.log("Intro");
         stage.removeAllChildren();
         build_Title(titleScreen);
         buildCurrentButtons(playBtn, playBtnHover, InstuctionsBtn, InstuctionsBtnHover);
         playBtn.on("click", function (evt) {
-            state = "STARTGAME"
+            state = "STARTGAME";
+            playBtnClick();
         });
         InstuctionsBtn.on("click", function (evt) {
-            state = "INSTRUCT"
+            state = "INSTRUCT";
+            playBtnClick();
         });
         break;
     case "INSTRUCT":
@@ -19,17 +26,20 @@ function stateMachine() {
         build_Instuctions(infoScreen);
         buildCurrentButtons(playBtn, playBtnHover, MainMenuBtn, MainMenuBtnHover);
         playBtn.on("click", function (evt) {
-            state = "STARTGAME"
+            state = "STARTGAME";
+            playBtnClick();
         });
         MainMenuBtn.on("click", function (evt) {
-            state = "INTRO"
+            state = "INTRO";
+            playBtnClick();
         });
         break;
     case "STARTGAME":
         console.log("StartGame");
+
         stage.removeAllChildren();
         build_Background(backgroundScreen);
-//        spritewalk();
+        //        spritewalk();
         characterLoad();
         characterAnimation(CharacterState);
         addScore();
@@ -40,12 +50,12 @@ function stateMachine() {
     case "ENDGAME":
         console.log("EndGame");
         stage.removeAllChildren();
-        resetScore();
         build_Gameover(gameoverScreen);
         addScore();
         buildSingleButton(MainMenuBtn, MainMenuBtnHover);
         MainMenuBtn.on("click", function (evt) {
-            state = "INTRO";
+            playBtnClick();
+            state = "INTRO";            
         });
         break;
     }

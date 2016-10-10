@@ -3,6 +3,7 @@ function addTimer() {
     timer.x = 10;
     timer.y = 50;
     stage.addChild(timer);
+
 }
 
 function resetGameTimer() {
@@ -15,17 +16,7 @@ function runGameTimer() {
     stage.clear();
     if (frameCount % (FPS / 10) === 0) {
         gameTimer = frameCount / (FPS);
-//        walk.x += 3;
-        
-        if (gameTimer === 2 || gameTimer === 4) {
-            score++;
-            updateScore();
-        }
-
-        if (gameTimer === 100) {
-            state = "ENDGAME";
-            resetGameTimer();
-        }
+        //        walk.x += 3;
     }
 }
 
@@ -40,6 +31,7 @@ function loop() {
     //    circle.x += 1;
     //    rect.rotation += 5;
     //    console.log(timer);
+    
     stateMachine(state);
     stage.update();
 }
