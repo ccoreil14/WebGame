@@ -55,7 +55,18 @@ function stateMachine() {
         buildSingleButton(MainMenuBtn, MainMenuBtnHover);
         MainMenuBtn.on("click", function (evt) {
             playBtnClick();
-            state = "INTRO";            
+            state = "INTRO";
+        });
+        break;
+    case "WINGAME":
+        console.log("WinGame");
+        stage.removeAllChildren();
+        build_Gameover(Win);
+        addScore();
+        buildSingleButton(MainMenuBtn, MainMenuBtnHover);
+        MainMenuBtn.on("click", function (evt) {
+            playBtnClick();
+            state = "INTRO";
         });
         break;
     }

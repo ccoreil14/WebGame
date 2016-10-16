@@ -30,6 +30,7 @@ function teleport() {
 function ifDie() {
     if (isInJMode === false) {
         if (collisionMethod(BadArea, PlayerModel, 0, canvas) !== false || collisionMethod(BadArea2, PlayerModel, 0, canvas) !== false || collisionMethod(BadArea3, PlayerModel, 0, canvas) !== false) {
+            playHurt();
             state = "ENDGAME";
         }
     }
@@ -37,7 +38,7 @@ function ifDie() {
 
 function ifWin() {
     if (collisionMethod(Door, PlayerModel, 0, canvas) !== false) {
-        playHurt();
-        state = "ENDGAME";
+        playVictory();
+        state = "WINGAME";
     }
 }

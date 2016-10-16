@@ -17,8 +17,12 @@ var canvas;
 
 var manifest = [
     {
-        src: "Images/Title.jpg",
+        src: "Images/TITLE5.jpg",
         id: "Title"
+    },
+    {
+        src: "Images/Win.jpg",
+        id: "Win"
     },
     {
         src: "Images/gameOver.jpg",
@@ -33,7 +37,7 @@ var manifest = [
         id: "bad"
     },
     {
-        src: "Images/info.jpg",
+        src: "Images/info3.jpg",
         id: "instuctions"
     },
     {
@@ -71,10 +75,6 @@ var manifest = [
     {
         src: "Images/MainMenuBtnHover.png",
         id: "MainMenuBtnHover"
-    },
-    {
-        src: "Images/d.png",
-        id: "door"
     },
     {
         src: "Images/BadArea.png",
@@ -170,11 +170,16 @@ function loadComplete(evt) {
         {
             id: "BtnClick",
             src: "ButtonClick.wav"
+        },
+        {
+            id: "winSound",
+            src: "winSound.wav"
         }
         ];
     createjs.Sound.addEventListener("fileload", loadComplete);
     createjs.Sound.registerSounds(sounds, audioPath);
     titleScreen = new createjs.Bitmap(queue.getResult("Title"));
+    titleScreen.scaleY = 1.05;
     gameoverScreen = new createjs.Bitmap(queue.getResult("gameover"));
     infoScreen = new createjs.Bitmap(queue.getResult("instuctions"));
     backgroundScreen = new createjs.Bitmap(queue.getResult("background"));
@@ -184,60 +189,59 @@ function loadComplete(evt) {
     levelFrame = new createjs.Bitmap(queue.getResult("round1"));
     InstuctionsBtn = new createjs.Bitmap(queue.getResult("InstuctionsBtn"));
     InstuctionsBtnHover = new createjs.Bitmap(queue.getResult("InstuctionsBtnHover"));
+    Win = new createjs.Bitmap(queue.getResult("Win"));
+    Win.scaleX = 0.7;
+    Win.scaleY = 0.7;
     playBtn = new createjs.Bitmap(queue.getResult("playBtn"));
     playBtnHover = new createjs.Bitmap(queue.getResult("playBtnHover"));
     MainMenuBtn = new createjs.Bitmap(queue.getResult("MainMenuBtn"));
     MainMenuBtnHover = new createjs.Bitmap(queue.getResult("MainMenuBtnHover"));
-    
+
     BadArea = new createjs.Bitmap(queue.getResult("bad"));
     BadArea.scaleX = 0.3;
     BadArea.scaleY = 0.3;
     BadArea.x = 230;
     BadArea.y = 580;
-    
+
     BadArea2 = new createjs.Bitmap(queue.getResult("bad"));
     BadArea2.scaleX = 0.3;
     BadArea2.scaleY = 0.3;
     BadArea2.x = 430;
     BadArea2.y = 580;
-    
+
     BadArea3 = new createjs.Bitmap(queue.getResult("bad"));
     BadArea3.scaleX = 0.3;
     BadArea3.scaleY = 0.3;
     BadArea3.x = 300;
     BadArea3.y = 360;
-    
+
     Coin1 = new createjs.Bitmap(queue.getResult("coin"));
     Coin1.scaleX = 0.3;
     Coin1.scaleY = 0.3;
     Coin1.x = 200;
     Coin1.y = 460;
-    
+
     Coin2 = new createjs.Bitmap(queue.getResult("coin"));
     Coin2.scaleX = 0.3;
     Coin2.scaleY = 0.3;
     Coin2.x = 400;
     Coin2.y = 460;
-    
+
     Coin3 = new createjs.Bitmap(queue.getResult("coin"));
     Coin3.scaleX = 0.3;
     Coin3.scaleY = 0.3;
     Coin3.x = 300;
     Coin3.y = 240;
-    
+
     Coin4 = new createjs.Bitmap(queue.getResult("coin"));
     Coin4.scaleX = 0.3;
     Coin4.scaleY = 0.3;
-    
+
     Coin5 = new createjs.Bitmap(queue.getResult("coin"));
     Coin5.scaleX = 0.3;
     Coin5.scaleY = 0.3;
+
     
-    Door = new createjs.Bitmap(queue.getResult("door"));
-    Door.y = 200;
-    Door.x = 740;
-    Door.scaleY = 0.5;
-    Door.scaleX = 0.3;
 
     Portal1 = new
     createjs.Bitmap(queue.getResult("portal"));
@@ -290,6 +294,20 @@ function loadComplete(evt) {
 
     collisionMethod = ndgmr.checkPixelCollision;
 
+    var doorSprite = new createjs.SpriteSheet({
+        images: ["../assets/images/door2.png"],
+        frames: [[0, 0, 130, 218, 0, 1, 1], [0, 0, 130, 218, 0, 1, 1], [0, 0, 130, 218, 0, 1, 1], [0, 0, 130, 218, 0, 1, 1], [0, 0, 130, 218, 0, 1, 1], [130, 0, 130, 218, 0, 1, 1], [130, 0, 130, 218, 0, 1, 1], [130, 0, 130, 218, 0, 1, 1], [130, 0, 130, 218, 0, 1, 1], [130, 0, 130, 218, 0, 1, 1], [260, 0, 130, 218, 0, 1, 1], [260, 0, 130, 218, 0, 1, 1], [260, 0, 130, 218, 0, 1, 1], [260, 0, 130, 218, 0, 1, 1], [260, 0, 130, 218, 0, 1, 1], [0, 218, 130, 218, 0, 1, 1], [0, 218, 130, 218, 0, 1, 1], [0, 218, 130, 218, 0, 1, 1], [0, 218, 130, 218, 0, 1, 1], [0, 218, 130, 218, 0, 1, 1], [130, 218, 130, 218, 0, 1, 1], [130, 218, 130, 218, 0, 1, 1], [130, 218, 130, 218, 0, 1, 1], [130, 218, 130, 218, 0, 1, 1], [130, 218, 130, 218, 0, 1, 1], [260, 218, 130, 218, 0, 1, 1], [260, 218, 130, 218, 0, 1, 1], [260, 218, 130, 218, 0, 1, 1], [260, 218, 130, 218, 0, 1, 1], [260, 218, 130, 218, 0, 1, 1], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0], [390, 218, 0, 0, 0, 0, 0]],
+        animations: {
+            doorRotate: [0, 20, "doorRotate"]
+        }
+    });
+
+    Door = new createjs.Sprite(doorSprite);  
+    Door.y = 180;
+    Door.x = 700;
+    Door.scaleX = 0.5;
+    Door.scaleY = 0.5;
+    Door.gotoAndPlay("doorRotate");
     startLoop();
 
 }
@@ -321,38 +339,7 @@ function playBtnClick(event) {
     createjs.Sound.play("BtnClick");
 }
 
+function playVictory(event) {
+    createjs.Sound.play("winSound");
+}
 
-
-
-//    var walkSheet = new createjs.SpriteSheet({
-//        images: [queue.getResult("mySprites")],
-//        frames: [[160,0,19,49,0,10.05,48.6],[179,0,34,44,0,17.05,43.6],[213,0,22,46,0,9.05,45.6],[235,0,17,49,0,8.05,48.6],[0,49,25,49,0,10.05,48.6],[25,49,31,46,0,14.05,45.6],[56,49,33,44,0,16.05,43.6],[89,49,30,44,0,17.05,43.6],[119,49,28,46,0,17.05,45.6],[147,49,19,49,0,10.05,48.6],[166,49,23,49,0,14.05,48.6],[189,49,31,46,0,16.05,45.6],[220,49,34,44,0,17.05,43.6],[0,98,19,49,0,9.05,48.6],[19,98,34,44,0,17.05,43.6],[53,98,22,46,0,13.05,45.6],[75,98,17,49,0,9.05,48.6],[92,98,25,49,0,15.05,48.6],[117,98,31,46,0,17.05,45.6],[148,98,33,44,0,17.05,43.6],[181,98,30,44,0,13.05,43.6],[211,98,28,46,0,11.05,45.6],[0,147,19,49,0,9.05,48.6],[19,147,23,49,0,9.05,48.6],[42,147,31,46,0,15.05,45.6],[73,147,34,44,0,17.05,43.6]],
-//        animations: {
-//            standRight: [0, 0, "standRight"],
-//            walkRight: [1, 12, "walkRight", .5],
-//            standLeft: [13, 13, "standLeft"],
-//            walkLeft: [14, 25, "walkLeft", .5]
-//        }     
-//    });
-//    
-//    walk = new createjs.Sprite(walkSheet);  //create a sprite from the frame and animation data
-//    walk.x=100;
-//    walk.y=500;
-//    walk.gotoAndPlay("walkRight");  //loops through the animation frames (1-12) as defined above
-
-//function addCircle() {
-//    circle = new createjs.Shape();
-//    //^ becomes global variable without var 
-//    circle.graphics.beginFill('#a77').drawCircle(0, 0, 40);
-//    circle.x = circle.y = 50;
-//    stage.addChild(circle);
-//
-//}
-//
-//function addRect() {
-//    rect = new createjs.Shape();
-//    rect.graphics.beginFill('#77a').drawRect(-40, -40, 80, 80);
-//    rect.x = 200;
-//    rect.y = 200;
-//    stage.addChild(rect);
-//}
